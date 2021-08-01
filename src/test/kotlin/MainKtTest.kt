@@ -9,7 +9,12 @@ internal class MainKtTest {
         val y = "AGGCA"
         val agap = -2
 
-        nw(x, y, agap, alfa)
+        val p = nw(x, y, agap, alfa)
+
+        val optimalAlignment = optimalAlignment(x, y, agap, alfa, p)
+
+        println(optimalAlignment.first)
+        println(optimalAlignment.second)
     }
 
     @Test

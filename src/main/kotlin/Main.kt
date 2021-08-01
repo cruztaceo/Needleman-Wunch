@@ -5,7 +5,7 @@ fun main(args: Array<String>) {
     println("Program arguments: ${args.joinToString()}")
 }
 
-fun nw(x: String, y: String, agap: Int, alfa: (x: Char, y: Char) -> Int): Int {
+fun nw(x: String, y: String, agap: Int, alfa: (x: Char, y: Char) -> Int): Array<IntArray> {
     val m = x.length + 1
     val n = y.length + 1
 
@@ -28,10 +28,40 @@ fun nw(x: String, y: String, agap: Int, alfa: (x: Char, y: Char) -> Int): Int {
 
     p.forEach { println(it.contentToString()) }
 
-    return p[m - 1][n - 1]
+    return p
 }
 
 val alfa: (Char, Char) -> Int = { x: Char, y: Char ->
     if (x == y) 1
     else -1
+}
+
+fun optimalAlignment(
+    x: String,
+    y: String,
+    agap: Int,
+    alfa: (x: Char, y: Char) -> Int,
+    p: Array<IntArray>
+): Pair<String, String> {
+    var a1 = ""
+    var a2 = ""
+    var i = p.size - 1
+    var j = p[0].size - 1
+    while (i > 0 && j > 0) {
+        if (i > 0 && j > 0 && p[i][j] == p[i - 1][j - 1] + alfa(x[i - 1], y[j - 1])) {
+            a1 = x[i - 1] + a1
+            a2 = y[j - 1] + a2
+            i -= 1
+            j -= 1
+        } else if (i > 0 && p[i][j] == p[i - 1][j] + agap) {
+            a1 = x[i - 1] + a1
+            a2 = "-$a2"
+            i -= 1
+        } else {
+            a1 = "-$a1"
+            a2 = y[j - 1] + a2
+            j -= 1
+        }
+    }
+    return Pair(a1, a2)
 }
