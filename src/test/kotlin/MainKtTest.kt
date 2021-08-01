@@ -1,4 +1,5 @@
 import org.junit.jupiter.api.Test
+import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
 internal class MainKtTest {
@@ -15,6 +16,9 @@ internal class MainKtTest {
 
         println(optimalAlignment.first)
         println(optimalAlignment.second)
+
+        assertEquals("AGGGCT", optimalAlignment.first)
+        assertEquals("A-GGCA", optimalAlignment.second)
     }
 
     @Test

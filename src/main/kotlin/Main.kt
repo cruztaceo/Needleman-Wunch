@@ -1,8 +1,14 @@
-fun main(args: Array<String>) {
-    println("Hello World!")
+fun main() {
+    val x = "CGATGCTAGCGTATCGTAGTCTATCGTAC"
+    val y = "ACGATGCTAGCGTTTCGTATCATCGTA"
+    val agap = -2
 
-    // Try adding program arguments at Run/Debug configuration
-    println("Program arguments: ${args.joinToString()}")
+    val p = nw(x, y, agap, alfa)
+
+    val optimalAlignment = optimalAlignment(x, y, agap, alfa, p)
+
+    println(optimalAlignment.first)
+    println(optimalAlignment.second)
 }
 
 fun nw(x: String, y: String, agap: Int, alfa: (x: Char, y: Char) -> Int): Array<IntArray> {
@@ -47,7 +53,7 @@ fun optimalAlignment(
     var a2 = ""
     var i = p.size - 1
     var j = p[0].size - 1
-    while (i > 0 && j > 0) {
+    while (i > 0 || j > 0) {
         if (i > 0 && j > 0 && p[i][j] == p[i - 1][j - 1] + alfa(x[i - 1], y[j - 1])) {
             a1 = x[i - 1] + a1
             a2 = y[j - 1] + a2
